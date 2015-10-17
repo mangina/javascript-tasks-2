@@ -66,14 +66,14 @@ module.exports.find = function find(query) {
         return phone2.split('').reverse().join('');
     }
 
+    if (!query) {
+        query = '';
+    }
+
     for (var i = 0; i < phoneBook.length; i++) {
-        if (!query) {
+        if (checkedObject(phoneBook[i], query)) {
             console.log(phoneBook[i].name + ', ' + editNumber(phoneBook[i].phone) +
                 ', ' + phoneBook[i].email);
-        }
-
-        if (checkedObject(phoneBook[i], query)) {
-            console.log(phoneBook[i].name + ', ' + phoneBook[i].phone + ', ' + phoneBook[i].email);
         }
     }
 };
@@ -103,7 +103,7 @@ module.exports.importFromCsv = function importFromCsv(filename) {
     var strings = data.split('\n');
     var counter = 0;
 
-    for (var i = 0; i < string.length; i++) {
+    for (var i = 0; i < strings.length; i++) {
         var stringData = strings[i].replace('\r', '');
         var stringPerson = stringData.split(';');
         var nameData = stringPerson[0];
@@ -113,7 +113,7 @@ module.exports.importFromCsv = function importFromCsv(filename) {
             counter++;
         }
     }
-    console.log('Добавлено' + counter + 'контакта');
+    console.log('Добавлено ' + counter + ' контакта');
 };
 
 /*
